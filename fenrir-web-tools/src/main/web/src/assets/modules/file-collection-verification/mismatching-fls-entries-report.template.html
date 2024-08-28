@@ -1,0 +1,162 @@
+<md-dialog aria-label="Load Node Data from Netsim Simulation dialog">
+  <md-dialog-content>
+    <md-toolbar md-autofocus="">
+      <div class="md-toolbar-tools">
+        <h2>Mismatching Records Count in FLS</h2>
+        <span flex=""></span>
+        <md-button class="md-icon-button" ng-click="cancelOrClose()">
+          <md-icon aria-label="Close"
+                   md-svg-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTkgNi40MUwxNy41OSA1IDEyIDEwLjU5IDYuNDEgNSA1IDYuNDEgMTAuNTkgMTIgNSAxNy41OSA2LjQxIDE5IDEyIDEzLjQxIDE3LjU5IDE5IDE5IDE3LjU5IDEzLjQxIDEyeiIvPjwvc3ZnPg=="></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-content layout-padding="">
+      <div layout="column" layout-align="start center">
+        <fieldset>
+          <legend>Report parameters</legend>
+          <div>
+            <strong>Number of nodes selected: {{ report.common.inputParams.selectedLiveNodes.length }}</strong>
+          </div>
+          <div layout="row">
+            <md-input-container class="md-block" flex-gt-xs="">
+              <label>ROP Start time:</label>
+              <input class=" dtp-no-msclear dtp-input md-input" date="true" edit-input="true"
+                     id="report.common.inputParams.ropStartTime" max-date="date" mdc-datetime-picker="" min-date="date"
+                     minutes="true" name="ropStartTime" ng-model="report.common.inputParams.ropStartTime"
+                     placeholder="YYYY-MM-DD HH:MM" short-time="true" show-icon="true" show-todays-date="true"
+                     time="true" type="text"/>
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-xs="">
+              <label>ROP End time:</label>
+              <input class=" dtp-no-msclear dtp-input md-input" date="true" edit-input="true"
+                     id="report.common.inputParams.ropEndTime" max-date="maxDateNow" mdc-datetime-picker=""
+                     min-date="minDate" minutes="true" name="ropEndTime" ng-model="report.common.inputParams.ropEndTime"
+                     placeholder="YYYY-MM-DD HH:MM" short-time="true" show-icon="true" show-todays-date="true"
+                     time="true" type="text"/>
+            </md-input-container>
+            <md-input-container>
+              <label style="overflow:hidden">ROP Interval (minutes)</label>
+              <md-select ng-model="report.flsmismatch.inputParams.selectedRopIntervalInMinutes">
+                <md-option
+                  ng-repeat="ropIntervalInMinutes in report.flsmismatch.inputParams.availableRopIntervalInMinutes"
+                  ng-value="ropIntervalInMinutes">{{ ropIntervalInMinutes }}
+                </md-option>
+              </md-select>
+            </md-input-container>
+          </div>
+          <div layout="row">
+            <md-input-container>
+              <label>FLS Data type</label>
+              <md-select ng-model="report.flsmismatch.inputParams.selectedDataType">
+                <md-option ng-repeat="dataType in report.common.catalogs.availableDataTypes" ng-value="dataType">{{
+                  dataType }}
+                </md-option>
+              </md-select>
+            </md-input-container>
+            <div layout="column">
+              <md-chips input-aria-label="Number of files expected" md-max-chips="10"
+                        md-on-remove="dataTypesAndExpectedRecordsOnRemove($chip, $index, $event)" md-removable="true"
+                        md-transform-chip="dataTypeTransformChip($chip)" name="dataTypesAndExpectedRecords"
+                        ng-model="report.flsmismatch.inputParams.dataTypesAndExpectedRecords" ng-required="true"
+                        placeholder="Number of files expected" readonly="false">
+                <md-chip-template>
+                  <strong>{{ $chip.dataType }}</strong>
+                  <em>({{ $chip.expectedRecords }})</em>
+                </md-chip-template>
+              </md-chips>
+              <div class="md-chips-messages" ng-messages="dataTypesAndExpectedRecords.$error"
+                   ng-show="report.flsmismatch.inputParams.dataTypesAndExpectedRecords.length == 0 || report.flsmismatch.inputParams.dataTypesAndExpectedRecords.length == undefined">
+                <div ng-message="required">* At least one FLS data type is required</div>
+              </div>
+            </div>
+          </div>
+          <md-switch ng-model="report.flsmismatch.inputParams.showOnlyMismatchingRecords">Show only mismatching
+            records
+          </md-switch>
+          <div layout="row">
+            <md-input-container class="md-block">
+              <md-switch aria-label="Enable/Disable limiting the number of records to retrieve"
+                         ng-model="report.common.inputParams.maxRecordsToRetrieveEnabled"></md-switch>
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-xs="">
+              <label>Max records to retrieve</label>
+              <input ng-disabled="!report.common.inputParams.maxRecordsToRetrieveEnabled"
+                     ng-model="report.common.inputParams.maxRecordsToRetrieve"/>
+            </md-input-container>
+          </div>
+          <div layout="row" layout-align="center center">
+            <md-button class="md-raised md-primary" ng-click="generateFlsMismatchesReport('SCREEN')">Generate report
+            </md-button>
+            <md-button class="md-raised md-primary" ng-click="generateFlsMismatchesReport('CSV')">Download report as
+              CSV
+            </md-button>
+          </div>
+        </fieldset>
+      </div>
+    </md-content>
+    <div layout="column" layout-align="center" ng-if="report.status.loading">
+      <div>
+        <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+      </div>
+      <div>Loading...</div>
+    </div>
+    <div ng-if="report.status.loaded">
+      <div ng-if="report.status.isInError">
+        <b>{{ report.status.message }}</b>
+        <br/>
+        <b>HTTP Status:</b>
+        {{ report.status.response.status }}
+        <br/>
+        <b>Error:</b>
+        {{ report.status.response.error }}
+        <br/>
+        <b>Server Response:</b>
+        {{ report.status.response.message }}
+        <br/>
+      </div>
+      <div ng-if="!report.status.isInError">
+        <md-table-container>
+          <table md-table="">
+            <thead md-head="" md-on-reorder="getDesserts" md-order="query.order">
+            <tr md-row="">
+              <th md-column="">Expected Node Name</th>
+              <th md-column="">Expected Data Type</th>
+              <th md-column="">Expected ROP Start Time</th>
+              <th md-column="">Expected ROP End Time</th>
+              <th md-column="">Expected Num Files</th>
+              <th md-column="">Actual Num Files</th>
+              <th md-column="">Record Details</th>
+            </tr>
+            </thead>
+            <tbody md-body="">
+            <tr md-row=""
+                ng-class="{'fls-mismatch-report-row-error': flsMismatchedEntry.numFiles != flsMismatchedEntry.expectedNumFiles , 'fls-mismatch-report-row-ok': flsMismatchedEntry.numFiles == flsMismatchedEntry.expectedNumFiles}"
+                ng-repeat="flsMismatchedEntry in report.output.data | limitTo: report.output.pageLimit: (report.output.currentPage - 1) * report.output.pageLimit">
+              <td md-cell="">{{ flsMismatchedEntry.expectedNodeName }}</td>
+              <td md-cell="">{{ flsMismatchedEntry.expectedDataType }}</td>
+              <td md-cell="">{{ flsMismatchedEntry.expectedRopStartTimeFormatted }}</td>
+              <td md-cell="">{{ flsMismatchedEntry.expectedRopEndTimeFormatted }}</td>
+              <td md-cell="">{{ flsMismatchedEntry.expectedNumFiles }}</td>
+              <td md-cell="">{{ flsMismatchedEntry.numFiles }}</td>
+              <td md-cell="">
+                <span ng-if="flsMismatchedEntry.numFiles == flsMismatchedEntry.expectedNumFiles"></span>
+                <span ng-if="flsMismatchedEntry.numFiles < flsMismatchedEntry.expectedNumFiles">Missing records in the FLS</span>
+                <span ng-if="flsMismatchedEntry.numFiles> flsMismatchedEntry.expectedNumFiles">
+                  Found more records in the FLS than expected
+                </span>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <md-table-pagination md-label="" md-limit="report.output.pageLimit" md-page="report.output.currentPage"
+                               md-page-select="" md-total="{{ report.output.data.length }}"></md-table-pagination>
+        </md-table-container>
+      </div>
+    </div>
+    <md-dialog-actions>
+      <md-button class="md-primary" ng-click="cancelOrClose()">Close</md-button>
+    </md-dialog-actions>
+  </md-dialog-content>
+</md-dialog>
+
+

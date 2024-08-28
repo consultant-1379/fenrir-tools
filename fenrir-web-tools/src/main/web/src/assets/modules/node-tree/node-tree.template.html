@@ -1,0 +1,11 @@
+<div id="nodeTreeView" controller="NodeTreeController">
+  <fieldset class="standard">
+    <legend>Node Tree View</legend>
+    <multiselect-searchtree data-input-model="nodeStoreStagedService.data.networks" multi-select="true"
+                            data-output-model="selectedItem2"
+                            data-callback="CustomCallback(item, selectedItems)"
+                            data-select-only-leafs="false" extra-buttons="true">
+    </multiselect-searchtree>
+  </fieldset>
+</div>
+

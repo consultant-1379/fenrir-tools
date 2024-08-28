@@ -1,0 +1,52 @@
+<md-dialog aria-label="Load Node Data from Netsim Simulation dialog">
+  <md-dialog-content>
+    <md-toolbar md-autofocus="">
+      <div class="md-toolbar-tools">
+        <h2>Missing entries in FLS report</h2>
+      </div>
+    </md-toolbar>
+    <md-dialog-actions>
+      <md-button class="md-primary" ng-click="cancelOrClose()">Close</md-button>
+    </md-dialog-actions>
+    <md-content layout-padding="">
+      <div layout="column" layout-align="start center">
+        <fieldset>
+          <legend>Report output</legend>
+          <div layout="row" layout-align="start center">
+            <div>
+              <table border="1">
+                <tr>
+                  <td>
+                    <b>Network</b>
+                  </td>
+                  <td>
+                    <b>Simulation</b>
+                  </td>
+                  <td>
+                    <b>Node name</b>
+                  </td>
+                  <td>
+                    <b>Node type</b>
+                  </td>
+                  <td>
+                    <b>IP Address</b>
+                  </td>
+                </tr>
+                <tr ng-repeat="selectedNode in selectedLiveNodes">
+                  <td>{{ selectedNode.network.name }}</td>
+                  <td>{{ selectedNode.simulation.name }}</td>
+                  <td>{{ selectedNode.node.name }}</td>
+                  <td>{{ selectedNode.node.neType }}</td>
+                  <td>{{ selectedNode.node.ip }}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </md-content>
+    <md-dialog-actions>
+      <md-button class="md-primary" ng-click="cancelOrClose()">Close</md-button>
+    </md-dialog-actions>
+  </md-dialog-content>
+</md-dialog>

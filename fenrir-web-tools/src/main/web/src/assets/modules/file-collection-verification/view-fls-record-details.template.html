@@ -1,0 +1,88 @@
+<md-dialog aria-label="FLS Record Details">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>FLS Record Details</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="flsViewCtrl.closeViewFlsRecordDetailsDialog()">
+        <md-icon
+          md-svg-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTkgNi40MUwxNy41OSA1IDEyIDEwLjU5IDYuNDEgNSA1IDYuNDEgMTAuNTkgMTIgNSAxNy41OSA2LjQxIDE5IDEyIDEzLjQxIDE3LjU5IDE5IDE5IDE3LjU5IDEzLjQxIDEyeiIvPjwvc3ZnPg=="
+          aria-label="Close"></md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <div class="md-dialog-content">
+      <table>
+        <tr>
+          <td>
+            <b>Network:</b>
+          </td>
+          <td>{{ flsViewCtrl.flsRecord.network }}</td>
+        </tr>
+        <tr>
+          <td>
+            <b>Simulation:</b>
+          </td>
+          <td>{{ flsViewCtrl.flsRecord.simulation }}</td>
+        </tr>
+        <tr>
+          <td>
+            <b>Id:</b>
+          </td>
+          <td>{{ flsViewCtrl.flsRecord.id }}</td>
+        </tr>
+        <tr>
+          <td>
+            <b>Node name:</b>
+          </td>
+          <td>{{ flsViewCtrl.flsRecord.nodeName }}</td>
+        </tr>
+        <tr>
+          <td>
+            <b>Node Type:</b>
+          </td>
+          <td>{{ flsViewCtrl.flsRecord.nodeType }}</td>
+        </tr>
+        <tr>
+          <td>
+            <b>ROP Start Time:</b>
+          </td>
+          <td>{{ flsViewCtrl.flsRecord.ropStartTimeFormatted }}</td>
+        </tr>
+        <tr>
+          <td>
+            <b>ROP End Time:</b>
+          </td>
+          <td>{{ flsViewCtrl.flsRecord.ropEndTimeFormatted }}</td>
+        </tr>
+        <tr>
+          <td>
+            <b>File Creation Time:</b>
+          </td>
+          <td>{{ flsViewCtrl.flsRecord.fileCreationTimeFormatted }}</td>
+        </tr>
+        <tr>
+          <td>
+            <b>File Type:</b>
+          </td>
+          <td>{{ flsViewCtrl.flsRecord.fileType }}</td>
+        </tr>
+        <tr>
+          <td>
+            <b>File Size:</b>
+          </td>
+          <td>{{ flsViewCtrl.flsRecord.fileSize }}</td>
+        </tr>
+        <tr>
+          <td>
+            <b>File Location:</b>
+          </td>
+          <td>{{ flsViewCtrl.flsRecord.fileLocation }}</td>
+        </tr>
+      </table>
+    </div>
+  </md-dialog-content>
+  <md-dialog-actions layout="row">
+    <md-button ng-click="flsViewCtrl.closeViewFlsRecordDetailsDialog()">Close</md-button>
+  </md-dialog-actions>
+</md-dialog>

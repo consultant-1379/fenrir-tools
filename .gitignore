@@ -1,0 +1,25 @@
+# Compiled source #
+*.class
+*/bin/*
+
+# Eclipse files
+.project
+.classpath
+.settings
+.metadata
+
+# IntelliJ IDEA files
+.idea
+*.iws
+*.ipr
+*.iml
+
+# Packages
+*.jar
+
+# Maven build files
+target
+
+/fenrirwebtools/src/main/web/node/
+/fenrirwebtools/src/main/web/node_modules/
+/fenrirwebtools/src/main/web/dist/

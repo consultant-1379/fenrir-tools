@@ -1,0 +1,40 @@
+#!/usr/bin/env groovy
+
+pipeline {
+    agent {
+        label 'Cloud-Native'
+    }
+    stages {
+        stage('Run Python Script') {
+            steps {
+                script {
+                    dir('suite-monitoring-automation') {
+                        // Run the Python script and capture the output
+                        def pythonOutput = sh(script: "source /home/enmadm100/37env/bin/activate && python3 generate_failed_suite_reports.py && deactivate", returnStdout: true).trim()
+
+                        // Parse the JSON string into a Groovy map
+                        def result = readJSON text: pythonOutput
+
+                        // Loop through the map
+                        result.each { email, message ->
+                            // Send email to each recipient
+                            emailext (
+                                to: email,
+                                subject: "Recently failed Long Loop & RFA suite(s)",
+                                body: message,
+                            )
+                        }
+                    }
+                }
+            }
+        }
+    }
+    post {
+        failure {
+            mail to: "PDLNMFEATU@pdl.internal.ericsson.com",
+                    subject: "Failed Pipeline: ${currentBuild.fullDisplayName}",
+                    body: "Failure on ${env.BUILD_URL}"
+        }
+    }
+}
+

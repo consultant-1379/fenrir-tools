@@ -1,0 +1,96 @@
+<md-dialog aria-label="Load Node Data from Netsim Simulation dialog">
+  <md-dialog-content>
+    <md-toolbar md-autofocus>
+      <div class="md-toolbar-tools">
+        <h2>Script generation</h2>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-actions>
+      <md-button ng-click="download()" class="md-primary">
+        Download
+      </md-button>
+      <md-button ng-click="copyToClipboard()" class="md-primary"
+                 ngclipboard data-clipboard-target="textarea.form.generatedScript">
+        Copy to clipoard
+      </md-button>
+      <md-button ng-click="cancelOrClose()" class="md-primary">
+        Close
+      </md-button>
+    </md-dialog-actions>
+
+    <md-content layout-padding>
+      <div id="hiddenDivForDownload"></div>
+      <div layout="column" layout-align="start center">
+        <fieldset>
+          <legend>Input parameters</legend>
+          <div layout="row" layout-align="start center">
+            <div>
+              <table>
+                <tr>
+                  <td>
+                    <b>Networks:</b>
+                  </td>
+                  <td>
+                    <table>
+                      <tr ng-repeat="network in selectedLiveNetworks">
+                        <td>{{ network.name }}</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <b>Simulations:</b>
+                  </td>
+                  <td>
+                    <table>
+                      <tr ng-repeat="simulation in selectedLiveSimulations">
+                        <td>{{ simulation.name }}</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <b>Nodes:</b>
+                  </td>
+                  <td>
+                    <table>
+                      <tr ng-repeat="node in selectedLiveNodes">
+                        <td>{{ node }}</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Script output</legend>
+          <div layout="row" layout-align="start center">
+            <div>
+              <md-input-container>
+                <textarea id="textarea.form.generatedScript" ng-model="form.generatedScript" md-maxlength="5000"
+                          ng-attr-rows="30" ng-attr-cols="40"></textarea>
+              </md-input-container>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </md-content>
+
+    <md-dialog-actions>
+      <md-button ng-click="download()" class="md-primary">
+        Download
+      </md-button>
+      <md-button ng-click="copyToClipboard()" class="md-primary">
+        Copy to clipoard
+      </md-button>
+      <md-button ng-click="cancelOrClose()" class="md-primary">
+        Close
+      </md-button>
+    </md-dialog-actions>
+  </md-dialog-content>
+</md-dialog>

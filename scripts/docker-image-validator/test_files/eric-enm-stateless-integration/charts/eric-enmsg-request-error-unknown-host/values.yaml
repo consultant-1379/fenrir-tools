@@ -1,0 +1,111 @@
+## eric-enmsg-web-push-service image version
+
+global:
+  registry:
+    url: armdocker-bad-host.rnd.ericsson.se
+    pullSecret:
+  ingress:
+    enmHost:
+  enmProperties:
+    postgres_service:
+  timezone:
+productInfo:
+  number: CXC 174 2007
+  rstate: R1AHT
+# Number of replicas(pods) to deploy
+replicas-eric-enmsg-web-push-service: 1
+images:
+  eric-enmsg-web-push-service:
+    name: eric-enmsg-web-push-service
+    tag: 1.0.512-1
+  waitInitContainer:
+    enabled: true
+    name: eric-enm-init-container
+    tag: 1.0.402-1
+    command: "[ '/bin/sh', '-c', 'bash /var/tmp/check_service.sh -s gossiprouter-cache,gossiprouter-remoting,jms01,postgres,sps,haproxy'
+      ]"
+  eric-enm-httpd:
+    name: eric-enmsg-web-push-service-httpd
+    tag: 1.0.512-1
+  eric-enm-monitoring:
+    enabled: true
+    name: eric-enm-monitoring-eap6
+    tag: 1.0.448-1
+imageCredentials:
+  repoPath: proj-enm
+  pullPolicy: Always
+  registry:
+    url:
+    pullSecret:
+## Configure the service
+service:
+  name: wpserv
+  annotations: {}
+  labels: {}
+ingress:
+  enabled: true
+ingress_jboss_web_context:
+  enabled: true
+  annotations:
+    ingress.kubernetes.io/ssl-passthrough: "true"
+    nginx.ingress.kubernetes.io/secure-backends: "true"
+## Configure resource requests and limits
+resources:
+  requests:
+    enabled: true
+    memory: 4096Mi
+  limits:
+    enabled: true
+    memory: 8192Mi
+  httpd:
+    enabled: false
+    requests:
+      memory:
+      cpu:
+    limits:
+      memory:
+      cpu:
+  monitoring:
+    enabled: false
+    requests:
+      memory:
+      cpu:
+    limits:
+      cpu:
+      memory:
+# LivenessProbe Health Check configuration.
+livenessProbe:
+  enabled: true
+  command: /opt/ericsson/vmmonitord/bin/ocf_monitor.py
+  arguments: --exec_agents
+  initialDelaySeconds: 600
+  timeoutSeconds: 15
+  periodSeconds: 30
+  failureThreshold: 1
+readinessProbe:
+  enabled: true
+  command: /opt/ericsson/vmmonitord/bin/ocf_monitor.py
+  arguments: --exec_agents
+  initialDelaySeconds: 120
+  periodSeconds: 30
+  timeoutSeconds: 15
+  failureThreshold: 1
+# Extra Annotations to be added to pod
+podAnnotations: {}
+## Tolerations for pod assignment
+tolerations: []
+## Affinity for pod assignment
+affinity: requiredDuringSchedulingIgnoredDuringExecution
+# Constrain which nodes your pod is eligible to be scheduled on
+nodeAffinity: {}
+priorityClassName: ""
+## Node selector
+nodeSelector: {}
+updateStrategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxUnavailable: 1
+    maxSurge: 0
+## Pod Disruption Budget is an indicator of the number of disruptions that can be tolerated at a given time.
+podDisruptionBudget:
+  maxUnavailable: 1

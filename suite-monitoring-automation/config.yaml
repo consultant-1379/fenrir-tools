@@ -1,0 +1,17 @@
+Teams:
+  Fenrir:
+    Emails:
+      - pdlnmfeatu@pdl.internal.ericsson.com
+    Suites:
+      Long Loop:
+        - "PM_CELLTRACE_RadioNode_MixedMode - Fenrir"
+      RFA:
+        - "PM_CELLTRACE_RadioNode5GS - Fenrir"
+  Burgundy:
+    Emails:
+      - PDLRETEAMB@pdl.internal.ericsson.com
+    Suites:
+      Long Loop: # Note 2 spaces before the hyphen to match actual suite name in LL
+        - "NetworkHealthMonitor LongLoopAcceptanceTests  - Burgundy"
+      RFA:
+        - "NetworkHealthMonitor RFA250AcceptanceTests - Burgundy"

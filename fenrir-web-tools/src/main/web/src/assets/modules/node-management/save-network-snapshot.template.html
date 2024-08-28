@@ -1,0 +1,25 @@
+<md-dialog aria-label="Save network snapshot">
+  <md-dialog-content>
+    <md-toolbar md-autofocus>
+      <div class="md-toolbar-tools">
+        <h2>Save network snapshot</h2>
+      </div>
+    </md-toolbar>
+
+    <div><b>What will happen with my data?</b></div>
+    <div>
+      This action will save a snapshot of the network data <br/>
+      including all the checked boxes so they will remain<br/>
+      selected even if you close your browser <br/>
+    </div>
+
+    <md-dialog-actions>
+      <md-button ng-click="saveNetworkSnapshot()" class="md-primary">
+        Continue
+      </md-button>
+      <md-button ng-click="cancelOrClose()" class="md-primary">
+        Cancel
+      </md-button>
+    </md-dialog-actions>
+  </md-dialog-content>
+</md-dialog>

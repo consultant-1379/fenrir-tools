@@ -1,0 +1,19 @@
+<div>
+  <md-divider></md-divider>
+  <node-tree></node-tree>
+  <md-divider></md-divider>
+  <div class="menu-demo-container" layout="row" layout-align="center center">
+    <md-button class="md-raised md-primary"
+               ng-click="$ctrl.showDialog($event, 'assets/modules/file-collection-verification/fls-simple-query-report.template.html')">
+      Run FLS query
+    </md-button>
+    <md-button class="md-raised md-primary"
+               ng-click="$ctrl.showDialog($event, 'assets/modules/file-collection-verification/mismatching-fls-entries-report.template.html')">
+      Find mismatching files in FLS
+    </md-button>
+<!--    <md-button class="md-raised md-primary"-->
+<!--               ng-click="$ctrl.showDialog($event, 'assets/modules/file-collection-verification/duplicate-fls-entries-report.template.html')">-->
+<!--      Find duplicate files in FLS-->
+<!--    </md-button>-->
+  </div>
+</div>

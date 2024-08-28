@@ -1,0 +1,72 @@
+<div>
+  <md-divider></md-divider>
+  <netsim-node-table></netsim-node-table>
+  <node-tree></node-tree>
+  <md-divider></md-divider>
+
+  <div class="menu-demo-container" layout-align="center center" layout="row">
+
+    <md-button class="md-raised md-primary"
+               ng-click="$ctrl.showDialog($event, 'assets/modules/node-management/save-network-snapshot.template.html')">
+      Save snapshot of selected nodes
+    </md-button>
+
+    <md-button class="md-raised md-primary"
+               ng-click="$ctrl.showDialog($event, 'assets/modules/node-management/view-node-data.template.html')">
+      View node data
+    </md-button>
+
+
+    <md-button class="md-raised md-primary"
+               ng-click="$ctrl.showDialog($event, 'assets/modules/node-management/add-node-data.template.html')">
+      Add node data
+    </md-button>
+
+    <md-button class="md-raised md-primary"
+               ng-click="$ctrl.showDialog($event, 'assets/modules/node-management/delete-node-data.template.html')">
+      Delete node data
+    </md-button>
+
+    <md-menu>
+      <md-button class="md-raised md-primary" ng-click="$ctrl.openMenu($mdMenu, $event)">Generate scripts</md-button>
+      <md-menu-content width="4">
+        <md-menu-item>
+          <md-button
+            ng-click="$ctrl.showDialog($event, 'assets/modules/node-management/generated-script-output.template.html', 0)">
+            Add nodes with PmFunction enabled
+          </md-button>
+        </md-menu-item>
+        <md-menu-item>
+          <md-button
+            ng-click="$ctrl.showDialog($event, 'assets/modules/node-management/generated-script-output.template.html', 1)">
+            Add nodes without PmFunction
+          </md-button>
+        </md-menu-item>
+        <md-menu-item>
+          <md-button
+            ng-click="$ctrl.showDialog($event, 'assets/modules/node-management/generated-script-output.template.html', 2)">
+            Delete nodes
+          </md-button>
+        </md-menu-item>
+        <md-menu-item>
+          <md-button
+            ng-click="$ctrl.showDialog($event, 'assets/modules/node-management/generated-script-output.template.html', 3)">
+            Enable PmFunction
+          </md-button>
+        </md-menu-item>
+        <md-menu-item>
+          <md-button
+            ng-click="$ctrl.showDialog($event, 'assets/modules/node-management/generated-script-output.template.html', 4)">
+            Disable PmFunction
+          </md-button>
+        </md-menu-item>
+        <md-menu-item>
+          <md-button
+            ng-click="$ctrl.showDialog($event, 'assets/modules/node-management/generated-script-output.template.html', 5)">
+            Set node IP addresses
+          </md-button>
+        </md-menu-item>
+      </md-menu-content>
+    </md-menu>
+  </div>
+</div>

@@ -1,0 +1,147 @@
+<!--<!DOCTYPE html>-->
+<html lang="en">
+<!-- Angular Material requires Angular.js Libraries -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-animate.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-aria.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular-messages.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+
+<!-- Angular Material Library -->
+<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.12/angular-material.min.js"></script>
+<script type="text/javascript" src="assets/js/multiselect-searchtree/kjvelarde-multiselect-searchtree.js"></script>
+<script type="text/javascript" src="assets/js/multiselect-searchtree/kjvelarde-multiselect-searchtree.tpl.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+<script type="text/javascript" src="assets/js/ng-material-datetimepicker/angular-material-datetimepicker.js"></script>
+<script type="text/javascript" src="assets/js/ng-material-datetimepicker/angular-material-datetimepicker.min.js.map"></script>
+<script type="text/javascript" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/svg-assets-cache.js"></script>
+<script type="text/javascript" src="https://cdn.rawgit.com/fagnersilvamartins/angular-material-collapsible/8426264b/dist/js/collapsible.min.js"></script>
+<script type="text/javascript" src="https://cdn.rawgit.com/fagnersilvamartins/angular-material-collapsible/8426264b/dist/js/collapsibleDirective.min.js"></script>
+<script type="text/javascript" src="assets/js/angular-material-sidemenu.js"></script>
+<script type="text/javascript" src="assets/js/angular-material-data-table/md-data-table.js"></script>
+<script type="text/javascript" src="https://cdn.rawgit.com/zenorocha/clipboard.js/master/dist/clipboard.js"></script>
+<script type="text/javascript" src="assets/js/ngclipboard/ngclipboard.js"></script>
+
+<!-- PouchDB -->
+<script src="assets/js/pouchdb/dist/pouchdb.js"></script>
+<script src="assets/js/pouchdb-debug/pouchdb-debug_index-browser_browserified.js"></script>
+<script src="assets/js/pouchdb-find/pouchdb-find_index_browserified.js"></script>
+<script src="assets/js/angular-pouchdb/angular-pouchdb.js"></script>
+<script src="assets/js/debug/debug_browserified.js"></script>
+<script type="text/javascript" src="assets/modules/node-store-staged-common/node-store-staged-common.module.js"></script>
+<script type="text/javascript" src="assets/modules/node-store-staged-common/node-store-staged-common.service.js"></script>
+<script type="text/javascript" src="assets/modules/node-store-staged-networks/node-store-staged-networks.module.js"></script>
+<script type="text/javascript" src="assets/modules/node-store-staged-networks/node-store-staged-networks.service.js"></script>
+<script type="text/javascript" src="assets/modules/node-store-staged-node-types/node-store-staged-node-types.module.js"></script>
+<script type="text/javascript" src="assets/modules/node-store-staged-node-types/node-store-staged-node-types.service.js"></script>
+<script type="text/javascript" src="assets/modules/node-store-staged-simulations/node-store-staged-simulations.module.js"></script>
+<script type="text/javascript" src="assets/modules/node-store-staged-simulations/node-store-staged-simulations.service.js"></script>
+<script type="text/javascript" src="assets/modules/node-store-staged-nodes/node-store-staged-nodes.module.js"></script>
+<script type="text/javascript" src="assets/modules/node-store-staged-nodes/node-store-staged-nodes.service.js"></script>
+<script type="text/javascript" src="assets/modules/node-store-staged-selected/node-store-staged-selected.module.js"></script>
+<script type="text/javascript" src="assets/modules/node-store-staged-selected/node-store-staged-selected.service.js"></script>
+<script type="text/javascript" src="assets/modules/node-store-staged/node-store-staged.module.js"></script>
+<script type="text/javascript" src="assets/modules/node-store-staged/node-store-staged.service.js"></script>
+<script type="text/javascript" src="assets/modules/node-store/node-store.module.js"></script>
+<script type="text/javascript" src="assets/modules/node-store/node-store.service.js"></script>
+<script type="text/javascript" src="assets/modules/node-store/node-store.component.js"></script>
+<script type="text/javascript" src="assets/modules/node-tree/node-tree.module.js"></script>
+<script type="text/javascript" src="assets/modules/node-tree/node-tree.component.js"></script>
+<script type="text/javascript" src="assets/modules/netsim-node-table/netsim-node-table.module.js"></script>
+<script type="text/javascript" src="assets/modules/netsim-node-table/netsim-node-table.component.js"></script>
+<script type="text/javascript" src="assets/modules/node-management/node-management.module.js"></script>
+<script type="text/javascript" src="assets/modules/node-management/node-management.component.js"></script>
+<script type="text/javascript" src="assets/modules/file-collection-verification/file-collection-verification.module.js"></script>
+<script type="text/javascript" src="assets/modules/file-collection-verification/file-collection-verification.component.js"></script>
+<script type="text/javascript" src="assets/js/page-navigation/page-navigation.js"></script>
+
+<!-- Angular Material style sheet -->
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.12/angular-material.min.css">
+<link rel="stylesheet" href="assets/js/multiselect-searchtree/kjvelarde-multiselect-searchtree.css">
+<link rel="stylesheet" href="assets/js/ng-material-datetimepicker/material-datetimepicker.min.css">
+<link rel="stylesheet" href="assets/styles/angular-material-sidemenu.css">
+<link rel="stylesheet" href="assets/js/angular-material-data-table/md-data-table.css">
+<link rel="stylesheet" href="https://cdn.rawgit.com/fagnersilvamartins/angular-material-collapsible/8426264b/dist/css/collapsible.min.css"/>
+<link rel="stylesheet" href="assets/modules/node-management/node-management.styles.css">
+
+<!-- Own modules -->
+<script type="text/javascript" src="assets/modules/node-store-db/node-store-db.module.js"></script>
+<script type="text/javascript" src="assets/modules/node-store-db/node-store-db.service.js"></script>
+<script type="text/javascript" src="assets/modules/node-store-persisted/node-store-persisted.module.js"></script>
+<script type="text/javascript" src="assets/modules/node-store-persisted/node-store-persisted.service.js"></script>
+
+<head>
+  <title>Fenrir Tools</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    .fls-mismatch-report-row-error{
+      background-color: hsla(14, 100%, 53%, 0.6);
+    }
+
+    .fls-mismatch-report-row-ok{
+      background-color: white
+    }
+
+    .md-chips-messages {
+      color: #dd2c00;
+      position: relative;
+      order: 4;
+      overflow: hidden;
+    }
+
+    .text-red {
+      color: #FF0000;
+    }
+
+    .text-blue {
+      color: #0000FF;
+    }
+
+    .text-purple {
+      color: #cc00cc;
+    }
+</style>
+</head>
+<base href="/"/>
+
+<body ng-app="PerformanceTestToolsApp">
+<div class="mat-app-background basic-container">
+</div>
+
+<!-- Main container -->
+<div id="mainContainer" layout="row">
+  <div ng-controller="performanceTestToolsController" layout="column" style="height:100vh" ng-cloak>
+    <section layout="row" flex>
+      <md-sidenav
+        class="md-sidenav-left"
+        md-component-id="left"
+        md-is-locked-open="$mdMedia('gt-md')"
+        md-whiteframe="4">
+        <md-toolbar class="md-theme-indigo">
+          <h1 class="md-toolbar-tools">Fenrir Tools</h1>
+        </md-toolbar>
+        <md-content layout-padding>
+          <md-button ng-click="changeView('/homepage')" class="md-primary">
+            Homepage Main
+          </md-button>
+          <md-button ng-click="changeView('/nodemanagement')" class="md-primary">
+            Node management
+          </md-button>
+          <md-button ng-click="changeView('/filecollectionverification')" class="md-primary">
+            File collection verification
+          </md-button>
+          <md-button ng-click="changeView('/helpandsetup')" class="md-primary">
+            Help & Setup
+          </md-button>
+        </md-content>
+        </md-content>
+      </md-sidenav>
+    </section>
+  </div>
+  <div flex="100" ng-view>
+    <br/>
+  </div>
+</div>
+</body>
+</html>

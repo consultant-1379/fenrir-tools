@@ -1,0 +1,125 @@
+<md-toolbar>
+  <div class="md-toolbar-tools">
+    <h2 class="md-flex">Help & Setup</h2>
+  </div>
+</md-toolbar>
+
+<md-content layout-padding>
+
+  <md-collapsible class="md-accordion">
+    <md-collapsible-item>
+      <md-collapsible-header layout="row">
+        <strong>Prerequisites for running this tool</strong>
+      </md-collapsible-header>
+      <md-collapsible-body>
+        <ui>
+          <li>Java 8+</li>
+        </ui>
+      </md-collapsible-body>
+    </md-collapsible-item>
+  </md-collapsible>
+
+  <md-collapsible class="md-accordion">
+    <md-collapsible-item>
+      <md-collapsible-header layout="row">
+        <strong>Prerequisites for developing this tool</strong>
+      </md-collapsible-header>
+      <md-collapsible-body>
+        <ui>
+          <li>Java 8+</li>
+          <li>Maven 3.5+: <a href="https://maven.apache.org/download.cgi" target="_blank">Get it here</a></li>
+          <li>NPM package manager: <a href="https://www.npmjs.com/get-npm" target="_blank">Get it here</a></li>
+          <li>ng-cli: <a href="https://www.npmjs.com/package/ng-cli" target="_blank">Get it here</a></li>
+        </ui>
+      </md-collapsible-body>
+    </md-collapsible-item>
+  </md-collapsible>
+
+  <md-collapsible class="md-accordion">
+    <md-collapsible-item>
+      <md-collapsible-header layout="row">
+        <strong>Tunnel setup for FLS queries</strong>
+      </md-collapsible-header>
+      <md-collapsible-body>
+        An SSH tunnel needs to be established towards the FLS database to have access to the
+        reports generated in the option 'File Collection Verification'<br/>
+        The port 5432 must be available on your computer.<br/><br/>
+        <p>
+          <i>For Windows users:</i> <br><br/>
+
+          <strong>If you're connecting to a physical server: </strong> <br/><br/>
+          <code>
+            ssh -L 5432:127.0.0.1:2500 </code><code class="text-red">[MS_SERVER_USERNAME]</code>@<code class="text-red">[MS_SERVER_HOST_OR_IP]</code>
+          <code class="text-blue">[sudo]</code> <code>ssh -L 2500:localhost:5432 litp-admin@<code class="text-purple">db-1</code>
+        </code>
+          <br/><br/>
+          <i>See 'Notes' below.</i>
+
+          <br/><br/>
+
+          <strong>If you're connecting to a vApp: </strong> <br/><br/>
+          <code>
+            ssh -L 5432:127.0.0.1:2500 root@192.168.0.42 ssh -L 2500:localhost:5432 litp-admin@db-1
+          </code>
+
+          <br/><br/>
+        </p>
+
+        <p>
+          <i>For Linux users:</i> <br><br/>
+
+          <strong>If you're connecting to a physical server: </strong> <br/><br/>
+          <code>
+            ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -t -L 5432:127.0.0.1:2500<code
+            class="text-red">[MS_SERVER_USERNAME]</code>@<code class="text-red">[MS_SERVER_HOST_OR_IP]</code> <code
+            class="text-blue">[sudo]</code> ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -L
+            2500:localhost:5432 litp-admin@<code class="text-purple">db-1</code>
+          </code>
+          <br/><br/>
+          <i>See 'Notes' below.</i>
+
+          <br/><br/>
+
+          <strong>If you're connecting to a vApp: </strong> <br/><br/>
+          <code>
+            ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -t -L 5432:127.0.0.1:2500 root@atvts<font
+            color="red">[VAPP_NUMBER]</font>.athtem.eei.ericsson.se ssh -o UserKnownHostsFile=/dev/null -o
+            StrictHostKeyChecking=no -t -L 2500:127.0.0.1:2500 root@ms-1 ssh -o UserKnownHostsFile=/dev/null -o
+            StrictHostKeyChecking=no -L 2500:127.0.0.1:5432 litp-admin@db-1
+          </code>
+
+          <br/><br/>
+          <i>
+            <em>Notes:</em><br/><br/>
+            <code class="text-red">[VAPP_NUMBER]</code>: Replace for the vapp number from your booking
+            (atvtsXXXX.athtem.eei.ericsson.se) <br/>
+            <code class="text-red">[MS_SERVER_USERNAME]</code>: Replace for user name for the MS server <br/>
+            <code class="text-red">[MS_SERVER_HOST_OR_IP]</code>: Replace for the IP or hostname of the MS server <br/>
+            <code class="text-blue">[sudo]</code>: Optional. You may need to include this bit if the user name for the
+            MS server is anything other than 'root' (usually on S2, S4 bookings) <br/>
+            <code class="text-purple">db-1</code>: Sometimes PostgreSQL is not running on db-1. If you get errors like
+            'Connection refused', you can try using <code class="text-purple">db-2</code> instead <br/>
+          </i>
+        </p>
+
+      </md-collapsible-body>
+    </md-collapsible-item>
+  </md-collapsible>
+
+  <md-collapsible class="md-accordion">
+    <md-collapsible-item>
+      <md-collapsible-header layout="row">
+        <strong>Customising runtime configuration for this tool</strong>
+      </md-collapsible-header>
+      <md-collapsible-body>
+        To change the HTTP port this tool listens on, launch the application using the following command:
+
+        <br/><br/>
+
+        <code>
+          $ java -Dserver.port=9080 -jar fenrir-tools.jar
+        </code>
+      </md-collapsible-body>
+    </md-collapsible-item>
+  </md-collapsible>
+</md-content>

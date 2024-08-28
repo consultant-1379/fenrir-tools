@@ -1,0 +1,37 @@
+<md-dialog aria-label="Delete node data">
+  <md-dialog-content>
+    <md-toolbar md-autofocus>
+      <div class="md-toolbar-tools">
+        <h2>Delete node data</h2>
+      </div>
+    </md-toolbar>
+
+    <md-content layout-padding>
+
+      <md-input-container class="md-block">
+        <md-radio-group ng-model="form.deleteNodeData.action">
+
+          <md-radio-button value="DELETE_SELECTED">Delete selected items</md-radio-button>
+          <md-radio-button value="DELETE_ALL">Delete all data</md-radio-button>
+
+        </md-radio-group>
+        <div><b>What will happen with my data?</b></div>
+        <div ng-if="form.deleteNodeData.action==='DELETE_SELECTED'">
+          This action will delete only the nodes that are currently selected
+        </div>
+        <div ng-if="form.deleteNodeData.action==='DELETE_ALL'">
+          This action will delete all the current network data and will <br/>
+          restore it to the default network and simulation
+        </div>
+    </md-content>
+
+    <md-dialog-actions>
+      <md-button ng-click="deleteNodeData()" class="md-primary">
+        Continue
+      </md-button>
+      <md-button ng-click="cancelOrClose()" class="md-primary">
+        Cancel
+      </md-button>
+    </md-dialog-actions>
+  </md-dialog-content>
+</md-dialog>

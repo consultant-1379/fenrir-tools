@@ -1,0 +1,175 @@
+<md-dialog aria-label="Load Node Data from Netsim Simulation dialog">
+  <md-dialog-content>
+    <md-toolbar md-autofocus>
+      <div class="md-toolbar-tools">
+        <h2>Add Node Data</h2>
+      </div>
+    </md-toolbar>
+
+    <!-- -->
+    <md-content layout-padding>
+      <div>
+        <form name="formLoadNodeDataManually">
+          <fieldset>
+            <legend>Data source</legend>
+            <div layout="row" layout-align="start center">
+              <md-switch class="md-primary" md-no-ink aria-label="Switch No Ink"
+                         ng-model="form.loadFromRawNetsimSimulation">
+                Load from raw simulation
+              </md-switch>
+            </div>
+          </fieldset>
+
+          <fieldset ng-show="form.loadFromRawNetsimSimulation">
+            <legend>Netsim simulation raw data</legend>
+            <md-input-container ng-show="form.loadFromRawNetsimSimulation">
+              <label>Enter node name prefix</label>
+              <input ng-model="form.netsimRawDataNodeNamePrefix" ng-required="form.loadFromRawNetsimSimulation">
+              <div ng-messages="form.netsimRawDataNodeNamePrefix.$error">
+                <div ng-message="required">This field is required.</div>
+              </div>
+            </md-input-container>
+            <div layout="column" layout-align="start start">
+              <md-input-container>
+                <label>Enter Netsim simulation data</label>
+                <textarea ng-model="form.netsimRawData" md-maxlength="500000" ng-attr-rows="10"
+                          ng-attr-cols="300" ng-required="form.loadFromRawNetsimSimulation"></textarea>
+                <div ng-messages="form.netsimRawData.$error">
+                  <div ng-message="required">This field is required.</div>
+                </div>
+              </md-input-container>
+            </div>
+          </fieldset>
+
+          <fieldset ng-show="!form.loadFromRawNetsimSimulation">
+            <legend>Node information</legend>
+            <div layout="row" layout-align="start start">
+              <div>
+                <md-input-container>
+                  <label>Node name:</label>
+                  <input ng-model="form.newNode.node.name" type="text" ng-required="!form.loadFromRawNetsimSimulation">
+                  <div ng-messages="form.newNode.node.name.$error">
+                    <div ng-message="required">This field is required.</div>
+                  </div>
+                </md-input-container>
+              </div>
+              <div>
+                <md-input-container>
+                  <label>IP address:</label>
+                  <input ng-model="form.newNode.node.ip" type="text" ng-required="!form.loadFromRawNetsimSimulation">
+                  <div ng-messages="form.newNode.node.ip.$error">
+                    <div ng-message="required">This field is required.</div>
+                  </div>
+                </md-input-container>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Node type information</legend>
+            <div layout="row" layout-align="start start">
+              <div>
+                <md-input-container>
+                  <label>Node type:</label>
+                  <md-select ng-model="form.newNode.nodeType.name" placeholder="Select a node type"
+                             ng-disabled="form.newNode.nodeType.addNew">
+                    <md-option ng-repeat="nodeType in nodeTypesCatalog" ng-value="nodeType">
+                      {{nodeType}}
+                    </md-option>
+                  </md-select>
+                </md-input-container>
+              </div>
+              <div>
+                <md-input-container>
+                  <md-switch ng-model="form.newNode.nodeType.addNew">Add new</md-switch>
+                </md-input-container>
+              </div>
+              <div>
+                <md-input-container>
+                  <label>New node type:</label>
+                  <input ng-model="form.newNode.nodeType.newName" type="text"
+                         ng-disabled="!form.newNode.nodeType.addNew"/>
+                </md-input-container>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset class="standard">
+            <legend>Network</legend>
+
+            <div layout="row" layout-align="start start">
+              <div>
+                <md-input-container>
+                  <label>Network Information</label>
+                  <md-select ng-model="form.newNode.network.id"
+                             placeholder="Select a network"
+                             ng-change="reloadSimulationsFromSelectedNetwork()"
+                             ng-disabled="form.newNode.network.addNew">
+                    <md-option ng-repeat="network in networksCatalog" ng-value="network.id">
+                      {{network.name}}
+                    </md-option>
+                  </md-select>
+                </md-input-container>
+              </div>
+              <div>
+                <md-input-container>
+                  <md-switch ng-model="form.newNode.network.addNew" ng-change="handleNetworkAddNewSwitch()">Add new
+                  </md-switch>
+                </md-input-container>
+              </div>
+              <div>
+                <md-input-container>
+                  <label>New Network name:</label>
+                  <input ng-model="form.newNode.network.newName" type="text"
+                         ng-disabled="!form.newNode.network.addNew"/>
+                </md-input-container>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Simulation information</legend>
+            <div layout="row" layout-align="start start">
+              <div>
+                <md-input-container>
+                  <label>Simulation:</label>
+                  <md-select ng-model="form.newNode.simulation.id" placeholder="Select a simulation"
+                             ng-disabled="form.newNode.simulation.addNew">
+                    <md-option ng-repeat="simulation in simulationsCatalog"
+                               ng-value="simulation.id">
+                      {{simulation.name}}
+                    </md-option>
+                  </md-select>
+                </md-input-container>
+              </div>
+              <div>
+                <md-input-container>
+                  <md-switch ng-model="form.newNode.simulation.addNew" ng-change="handleSimulationAddNewSwitch()">Add
+                    new simulation
+                  </md-switch>
+                </md-input-container>
+              </div>
+              <div>
+                <md-input-container>
+                  <label>New Simulation name:</label>
+                  <input ng-model="form.newNode.simulation.newName" type="text"
+                         ng-disabled="!form.newNode.simulation.addNew"/>
+                </md-input-container>
+              </div>
+            </div>
+          </fieldset>
+      </div>
+    </md-content>
+    <!-- -->
+
+    <md-dialog-actions>
+      <md-button ng-click="saveNodeData()"  ng-disabled="formLoadNodeDataManually.$invalid"class="md-primary">
+        Save
+      </md-button>
+      <md-button ng-click="cancelOrClose()" class="md-primary">
+        Cancel
+      </md-button>
+    </md-dialog-actions>
+    </form>
+  </md-dialog-content>
+</md-dialog>
